@@ -1,0 +1,124 @@
+pipeline {
+    agent any
+
+    triggers {
+        
+        pollSCM('* * * * *') 
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+
+                cleanWs()
+            }
+        }
+
+       stage('Checkout') {
+    steps {
+        script {
+            git branch: 'sravan_test', url: 'https://bitbucket.org/ttec-digital-ip/project-fischer.git'
+            
+        }
+    }
+}
+
+        stage('Check Changes in conversationgateway') {
+            when {
+                changeset '**/conversationgateway/**'
+            }
+            steps {
+                sh 'echo "changes detected in conversationgateway "'
+            }
+        }
+		
+        stage('Check Changes in agent-assist') {
+            when {
+                changeset '**/agent-assist/**'
+            }
+            steps {
+                sh 'echo "changes detected in agent-assist"'
+            }
+        }
+		
+        stage('Check Changes in orchestrator-2') {
+            when {
+                changeset '**/orchestrator-2/**'
+            }
+            steps {
+                sh 'echo "changes detected in orchestrator-2 "'
+            }
+        }
+
+        stage('Check Changes in dwf-commons') {
+            when {
+                changeset '**/dwf-commons/**'
+            }
+            steps {
+                sh 'echo "changes detected in dwf-commons"'
+            }
+        }
+
+        stage('Check Changes in reporting-worker') {
+            when {
+                changeset '**/reporting-worker/**'
+            }
+            steps {
+                sh 'echo "changes detected in reporting-worker "'
+            }
+        }
+
+        stage('Check Changes in summarizer') {
+            when {
+                changeset '**/summarizer/**'
+            }
+            steps {
+                sh 'echo "changes detected in summarizer"'
+            }
+        }
+
+        stage('Check Changes in survey') {
+            when {
+                changeset '**/survey/**'
+            }
+            steps {
+                sh 'echo "changes detected in survey"'
+            }
+        }
+
+        stage('Check Changes in workflowmanager') {
+            when {
+                changeset '**/workflowmanager/**'
+            }
+            steps {
+                sh 'echo "changes detected in workflowmanager"'
+            }
+        }
+
+        stage('No Changes Detected') {
+            when {
+                not {
+                    anyOf {
+                        changeset '**/conversationgateway/**'
+                        changeset '**/workflowmanager/**'
+                        changeset '**/survey/**'
+                        changeset '**/summarizer/**'
+                        changeset '**/reporting-worker/**'
+                        changeset '**/dwf-commons/**'
+                        changeset '**/orchestrator-2/**'
+                        changeset '**/agent-assist/**'
+                    }
+                }
+            }
+            steps {
+                sh 'echo "No changes detected in the specified files."'
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
