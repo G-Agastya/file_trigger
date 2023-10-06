@@ -1,4 +1,4 @@
-pipelin {
+pipeli {
     agent any
 
     triggers {
