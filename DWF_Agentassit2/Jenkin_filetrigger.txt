@@ -1,4 +1,4 @@
-eline {
+ {
     agent any
 
     triggers {
