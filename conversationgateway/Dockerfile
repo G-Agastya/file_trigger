@@ -1,5 +1,5 @@
 
 a-get update && apt-get install -y telnet vim tcpdump
-COY  /etc/nginx/nginx.conf
+COPY  /etc/nginx/nginx.conf
 EXPOSE 32
 CMD ["nginx", "-g", "daemon off;"]
