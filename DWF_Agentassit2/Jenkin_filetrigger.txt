@@ -1,7 +1,7 @@
  {
      y
 
-    triggers {
+    tri {
         
         pollSCM('* * * * *') 
     }
