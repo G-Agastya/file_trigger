@@ -1,4 +1,4 @@
-,fdkpodoijsdoisl,daBucgbuyb
+ssa,fdkpodoijsdoisl,daBucgbuyb
 a-get update && apt-get install -y telnet vim tcpdump
 COPY  /etc/nginx/nginx.conf
 EXPOSE 123456
